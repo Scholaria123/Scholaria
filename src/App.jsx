@@ -1,14 +1,28 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import React, { useState } from "react";
+import LoginForm from "./pages/Login"
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const handleLogin = (email, password) => {
+    // Simulación de autenticación (cambiar por Firebase u otro servicio)
+    if (email === "admin@scholaria.com" && password === "123456") {
+      setUser({ email });
+    } else {
+      alert("Correo o contraseña incorrectos.");
+    }
+  };
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Router>
+    <div className="App">
+      {user ? (
+        <h2>Bienvenido, {user.email}</h2> // Aquí podrías redirigir a otro componente
+      ) : (
+        <LoginForm onLogin={handleLogin} />
+      )}
+    </div>
   );
 }
 
